@@ -1,7 +1,9 @@
 import { readConfig } from "src/config";
-import { createFeed, getAllFeeds } from "src/lib/db/queries/feeds";
-import { getUserById, getUserByName } from "src/lib/db/queries/users";
+import { createFeed, getAllFeeds } from "../lib/db/queries/feeds";
+import { getUserByName, getUserById } from "../lib/db/queries/users";
 import { Feed, User } from "src/lib/db/schema";
+import { createFeedFollow } from "src/lib/db/queries/feed-follows";
+import { printFeedFollow } from "./feed-follows";
 
 
 
@@ -24,6 +26,9 @@ export async function handlerAddFeed(cmdName: string, ...args: string[]) {
         throw new Error("Failed to create feed");
     }
 
+    const feedFollow = await createFeedFollow(user.id, feed.id);
+    printFeedFollow(user.name, feedFollow.feedName);
+
     console.log("Feed created successfully:");
     printFeed(feed, user);
 }
@@ -44,6 +49,7 @@ export async function handlerListFeeds(cmdName: string, ...args: string[]) {
             throw new Error(`User with id ${feed.userId} does not exits`);
         }
         printFeed(feed, user);
+        console.log("=====================================");
     }
 }
 

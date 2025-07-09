@@ -1,5 +1,5 @@
 import { setUser, readConfig } from "src/config";
-import { createUser, getUserByName, resetUsers, getAllUsers } from "src/lib/db/queries/users";
+import { createUser, getUserByName, getAllUsers } from "src/lib/db/queries/users";
 
 export async function handlerLogin(cmdName: string, ...args: string[]) {
     if (args.length !== 1) {
@@ -30,13 +30,6 @@ export async function handlerRegister(cmdName: string, ...args: string[]) {
     setUser(user.name);
     console.log("User created successfully!");
 
-}
-
-export async function deleteUsers(cmdName: string, ...args: string[]) {
-    if (args.length != 0) {
-        throw new Error(`usage: ${cmdName}`);
-    }
-    await resetUsers();
 }
 
 export async function handlerListUsers(cmdName: string, ...args: string[]) {

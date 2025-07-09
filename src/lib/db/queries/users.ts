@@ -18,7 +18,7 @@ export async function getUserById(id: string) {
     return firstOrUndefined(result);
 }
 
-export async function resetUsers() {
+export async function deleteUsers() {
     await db.delete(users);
 }
 

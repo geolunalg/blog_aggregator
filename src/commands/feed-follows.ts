@@ -2,17 +2,11 @@ import { getFeedByURL } from "src/lib/db/queries/feeds";
 import { createFeedFollow, getFeedFollowsForUser } from "../lib/db/queries/feed-follows";
 import { readConfig } from "src/config";
 import { getUserByName } from "src/lib/db/queries/users";
+import { User } from "src/lib/db/schema";
 
-export async function handlerFollow(cmdName: string, ...args: string[]) {
+export async function handlerFollow(cmdName: string, user: User, ...args: string[]) {
     if (args.length !== 1) {
         throw new Error(`usage: ${cmdName} <feed_url>`);
-    }
-
-    const config = readConfig();
-    const user = await getUserByName(config.currentUserName);
-
-    if (!user) {
-        throw new Error(`User ${config.currentUserName} not found`);
     }
 
     const feedURL = args[0];
@@ -27,16 +21,9 @@ export async function handlerFollow(cmdName: string, ...args: string[]) {
     printFeedFollow(ffRow.userName, ffRow.feedName);
 }
 
-export async function handlerListFeedFollows(cmdName: string, ...args: string[]) {
+export async function handlerListFeedFollows(cmdName: string, user: User, ...args: string[]) {
     if (args.length !== 0) {
         throw new Error(`usage: ${cmdName}`);
-    }
-
-    const config = readConfig();
-    const user = await getUserByName(config.currentUserName);
-
-    if (!user) {
-        throw new Error(`User ${config.currentUserName} not found`);
     }
 
     const feedFollows = await getFeedFollowsForUser(user.id);

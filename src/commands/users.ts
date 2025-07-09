@@ -1,5 +1,5 @@
 import { setUser, readConfig } from "src/config";
-import { createUser, getUser, resetUsers, getAllUsers } from "src/lib/db/queries/users";
+import { createUser, getUserByName, resetUsers, getAllUsers } from "src/lib/db/queries/users";
 
 export async function handlerLogin(cmdName: string, ...args: string[]) {
     if (args.length !== 1) {
@@ -7,7 +7,7 @@ export async function handlerLogin(cmdName: string, ...args: string[]) {
     }
 
     const userName = args[0];
-    const existingUser = await getUser(userName);
+    const existingUser = await getUserByName(userName);
     if (!existingUser) {
         throw new Error(`User ${userName} not found`);
     }
@@ -47,7 +47,7 @@ export async function handlerListUsers(cmdName: string, ...args: string[]) {
     const currUser = readConfig().currentUserName;
     const users = await getAllUsers();
     if (!users) {
-        throw new Error(`No users not found`);
+        throw new Error(`No users found`);
     }
 
     for (const user of users) {

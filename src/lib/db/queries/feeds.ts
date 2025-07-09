@@ -12,3 +12,8 @@ export async function createFeed(feedName: string, url: string, userId: string) 
 
     return firstOrUndefined(result);
 }
+
+export async function getAllFeeds() {
+    const result = await db.select().from(feeds);
+    return result;
+}

@@ -5,7 +5,7 @@ const dbUrl = readConfig().dbUrl;
 
 export default defineConfig({
     schema: "src/lib/db/schema.ts",
-    out: "src/lib/db/metadata",
+    out: "src/lib/metadata",
     dialect: "postgresql",
     dbCredentials: {
         url: dbUrl

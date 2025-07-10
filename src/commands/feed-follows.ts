@@ -49,7 +49,7 @@ export async function handlerListFeedFollows(cmdName: string, user: User, ...arg
         return;
     }
 
-    console.log(`Feed follows for user ${user.id}:`);
+    console.log(`Feed follows for user ${user.name}:`);
     for (const ff of feedFollows) {
         console.log(`* ${ff.feedname}`);
     }

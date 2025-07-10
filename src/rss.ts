@@ -43,17 +43,14 @@ export async function fetchFeed(feedURL: string) {
 
     const rssItems: RSSItem[] = [];
     for (const item of items) {
-        if (!item.title || !item.link ||
-            !item.description || !item.pubDate) {
-            continue
+        if (item.title && item.link && item.description && item.pubDate) {
+            rssItems.push({
+                title: item.title,
+                link: item.link,
+                description: item.description,
+                pubDate: item.pubDate
+            });
         }
-
-        rssItems.push({
-            title: item.title,
-            link: item.link,
-            description: item.description,
-            pubDate: item.pubDate
-        });
     }
 
     const rss: RSSFeed = {

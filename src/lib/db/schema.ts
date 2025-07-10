@@ -7,7 +7,7 @@ export const users = pgTable("users", {
         .notNull()
         .defaultNow()
         .$onUpdate(() => new Date()),
-    name: text("name").notNull().unique(),
+    name: text("name").notNull().unique()
 });
 
 export type User = typeof users.$inferSelect;
@@ -22,8 +22,8 @@ export const feeds = pgTable("feeds", {
     name: text("name").notNull(),
     url: text("url").notNull().unique(),
     userId: uuid("user_id")
-        .references(() => users.id, { onDelete: "cascade" })
-        .notNull(),
+        .notNull()
+        .references(() => users.id, { onDelete: "cascade" }),
     lastFetchAt: timestamp("last_fetch_at")
 });
 
@@ -39,13 +39,32 @@ export const feedFollows = pgTable(
             .defaultNow()
             .$onUpdate(() => new Date()),
         userId: uuid("user_id")
-            .references(() => users.id, { onDelete: "cascade" })
-            .notNull(),
+            .notNull()
+            .references(() => users.id, { onDelete: "cascade" }),
         feedId: uuid("feed_id")
             .notNull()
-            .references(() => feeds.id, { onDelete: "cascade" }),
+            .references(() => feeds.id, { onDelete: "cascade" })
     },
-    (t) => ({ unq: unique().on(t.userId, t.feedId) }),
+    (t) => ({ unq: unique().on(t.userId, t.feedId) })
 );
 
 export type FeedFollow = typeof feedFollows.$inferSelect;
+
+export const posts = pgTable("posts", {
+    id: uuid("id").primaryKey().defaultRandom().notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at")
+        .notNull()
+        .defaultNow()
+        .$onUpdate(() => new Date()),
+    title: text("title").notNull(),
+    url: text("url").notNull().unique(),
+    description: text("description"),
+    publishedAt: timestamp("published_at"),
+    feedId: uuid("feed_id")
+        .notNull()
+        .references(() => feeds.id, { onDelete: "cascade" })
+});
+
+export type NewPost = typeof posts.$inferInsert;
+export type Post = typeof posts.$inferSelect;

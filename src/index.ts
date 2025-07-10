@@ -3,7 +3,7 @@ import { handlerLogin, handlerRegister, handlerListUsers } from "./commands/user
 import { handlerAgg } from "./commands/aggregate";
 import { handlerAddFeed, handlerListFeeds } from "./commands/feeds";
 import { handlerReset } from "./commands/reset";
-import { handlerFollow, handlerListFeedFollows } from "./commands/feed-follows";
+import { handlerFollow, handlerListFeedFollows, handlerUnfollow } from "./commands/feed-follows";
 import { middlewareLoggedIn } from "./middleware";
 
 async function main() {
@@ -38,6 +38,11 @@ async function main() {
         commandsRegistry,
         "following",
         middlewareLoggedIn(handlerListFeedFollows),
+    );
+    registerCommand(
+        commandsRegistry,
+        "unfollow",
+        middlewareLoggedIn(handlerUnfollow),
     );
 
     try {

@@ -1,5 +1,5 @@
 import { getNextFeedToFetch, markFeedFetched } from "src/lib/db/queries/feeds";
-import { fetchFeed } from "src/lib/db/rss";
+import { fetchFeed } from "src/rss";
 import { Feed } from "src/lib/db/schema";
 import { parseDuration } from "src/time";
 

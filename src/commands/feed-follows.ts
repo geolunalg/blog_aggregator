@@ -25,7 +25,7 @@ export async function handlerUnfollow(cmdName: string, user: User, ...args: stri
     }
 
     const feedURL = args[0];
-    let feed = await getFeedByURL(feedURL);
+    const feed = await getFeedByURL(feedURL);
     if (!feed) {
         throw new Error(`Feed not found for url: ${feedURL}`);
     }
@@ -35,7 +35,7 @@ export async function handlerUnfollow(cmdName: string, user: User, ...args: stri
         throw new Error(`Failed to unfollow feed: ${feedURL}`);
     }
 
-    console.log(`%s unfollowed successfully!`, feed.name);
+    console.log(`${feed.name} unfollowed successfully!`);
 }
 
 export async function handlerListFeedFollows(cmdName: string, user: User, ...args: string[]) {
@@ -49,9 +49,9 @@ export async function handlerListFeedFollows(cmdName: string, user: User, ...arg
         return;
     }
 
-    console.log(`Feed follows for user %s:`, user.id);
-    for (let ff of feedFollows) {
-        console.log(`* %s`, ff.feedname);
+    console.log(`Feed follows for user ${user.id}:`);
+    for (const ff of feedFollows) {
+        console.log(`* ${ff.feedname}`);
     }
 }
 

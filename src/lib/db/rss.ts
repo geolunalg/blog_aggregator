@@ -42,10 +42,9 @@ export async function fetchFeed(feedURL: string) {
         ? channel.item : [channel.item];
 
     const rssItems: RSSItem[] = [];
-
     for (const item of items) {
-        if (!item.title || item.link ||
-            item.description || item.pubDate) {
+        if (!item.title || !item.link ||
+            !item.description || !item.pubDate) {
             continue
         }
 

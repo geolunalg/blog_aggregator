@@ -5,7 +5,7 @@ The Blog Aggregator allows users to track blog feeds from the internet. Users ca
 ## Requirements:
 - [Node Version Manager (NVM)](#node-version-manager)
 - [NodeJS](#nodejs)
-- [PostgreSQL Database](#postgres-database)
+- [PostgreSQL Database](#postgresql-database)
 - [Database Setup](#database-setup)
 
 ### Node Version Manager

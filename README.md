@@ -82,8 +82,8 @@ Copy and paste the following into a file called `.gatorconfig.json` located in y
 ```
 
 {
-"db\_url": "postgres\://<username>:<password>@localhost:5432/gator?sslmode=disable",
-"current\_user\_name": "current\_user"
+    "db_url": "postgres://<password>:<username>@localhost:5432/gator?sslmode=disable",
+    "current_user_name": "boots"
 }
 
 ```
